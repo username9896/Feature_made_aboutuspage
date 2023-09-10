@@ -281,16 +281,15 @@ def auth_home():
 @app.route('/news/')
 def auth_news(): 
     if not is_token_valid():
-        return render_template("news.html")
+        return redirect('/signin')  # Redirect to sign-in page if the token is expired
     if is_token_valid():
-        return render_template("news.html")   
-        
+        return render_template("news.html")
 
 # APPLICATION FAQ PAGE - REQUIRES USER TO BE SIGNED IN TO ACCESS
 @app.route('/FAQ/')
 def auth_FAQ(): 
     if not is_token_valid():
-        return render_template("faq.html")
+        return redirect('/signin')  # Redirect to sign-in page if the token is expired
     if is_token_valid():
         return render_template("FAQ.html")
     
@@ -301,6 +300,14 @@ def open_terms_of_use():
         return redirect('/signin')  # Redirect to sign-in page if the token is expired
     if is_token_valid():
         return render_template("TermsofUse.html") 
+    
+# APPLICATION about us page
+@app.route('/about-us/')
+def auth_about_us():
+    if not is_token_valid():
+        return redirect('/signin')  # Redirect to sign-in page if the token is expired
+    if is_token_valid():
+        return render_template("aboutus.html") 
 
 # Define a Flask route for the Dash app's page
 #@app.route('/dash/')
